@@ -1,15 +1,13 @@
 package com.saucedemo.driverfactory;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import com.saucedemo.utils.ConfigReader;
 
 public class DriverFactory {
     
-    // ThreadLocal<WebDriver> driver = new ThreadLocal<>(); // commented for single-run (no parallel)
     private static WebDriver driver;
     
     public static WebDriver initDriver() {
@@ -17,15 +15,12 @@ public class DriverFactory {
         
         switch (browser) {
             case "chrome":
+                WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver();
                 break;
                 
-            case "firefox":
-                FirefoxOptions firefoxOptions = new FirefoxOptions();
-                driver = new FirefoxDriver(firefoxOptions);
-                break;
-                
             case "edge":
+                WebDriverManager.edgedriver().setup();
                 driver = new EdgeDriver();
                 break;
                 
@@ -33,6 +28,7 @@ public class DriverFactory {
                 throw new RuntimeException("Browser not supported: " + browser);
         }
         
+        driver.manage().window().maximize();
         return driver;
     }
     

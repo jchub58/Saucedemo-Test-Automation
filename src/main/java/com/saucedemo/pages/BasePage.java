@@ -6,8 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.time.Duration;
 import java.util.List;
@@ -15,8 +13,7 @@ import java.util.List;
 public class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
-    private static final Logger logger = LogManager.getLogger(BasePage.class);
-    public BasePage(WebDriver driver) {
+        public BasePage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
@@ -26,12 +23,10 @@ public class BasePage {
     }
 
     protected void waitAndClick(By locator) {
-        logger.info("Clicking element: " + locator);
         waitForElement(locator).click();
     }
 
     protected void waitAndSendKeys(By locator, String text) {
-        logger.info("Entering text in: " + locator);
         waitForElement(locator).sendKeys(text);
     }
 
@@ -39,7 +34,7 @@ public class BasePage {
         return waitForElement(locator).getText();
     }
 
-    protected boolean isElementVisible(By locator) {
+    public boolean isElementVisible(By locator) {
         try {
             return waitForElement(locator).isDisplayed();
         } catch (Exception e) {
