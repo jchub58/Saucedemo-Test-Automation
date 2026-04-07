@@ -33,6 +33,14 @@ public class CheckoutPage extends BasePage {
         waitAndClick(finishButton);
     }
 
+    public String getErrorMessage() {
+        return waitAndGetText(errorMessage);
+    }
+
+    public void clickCancel() {
+        waitAndClick(cancelButton);
+    }
+
     public String getCompleteMessage() {
         return waitAndGetText(completeHeader);
     }
